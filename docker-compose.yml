@@ -1,0 +1,52 @@
+version: "3.8"
+
+services:
+ api:
+  build:
+   context: ./api
+   dockerfile: Dockerfile.api
+   target: build
+  container_name: api
+  ports:
+   - 4000:4000
+  command: npm run dev
+
+  networks:
+    rede_banco:
+      ipv4_address: 172.16.2.2
+
+  # db:
+  #   build:
+  #     context: ./db
+  #     dockerfile: Dockerfile.db
+  #   container_name: db
+  #   networks:
+  #     rede_banco:
+  #       ipv4_address: 172.16.2.3
+
+ front:
+  build:
+    context: ./front-react
+    dockerfile: Dockerfile.front
+    target: build
+  container_name: front
+  ports:
+    - 5173:5173
+  command: npm run dev
+  
+  networks:
+    rede_front:
+      ipv4_address: 172.16.1.3
+
+    
+networks:
+  rede_front:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.16.1.0/24
+  rede_banco:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.16.2.0/24
