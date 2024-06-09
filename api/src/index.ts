@@ -22,7 +22,7 @@ app.get("/createUser", (req: Request, res: Response) => {
     createEvento().then(()=>{
         res.status(200).json("Evento Cadastradsdsddsddo");
     }).catch((err)=>{
-        res.status(400).json(err);
+        res.status(400).json("Erro");
     });
    });
 
