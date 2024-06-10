@@ -7,6 +7,8 @@ services:
       dockerfile: Dockerfile.api
       target: build
     container_name: api
+    volumes:
+      - ./api:/app
     depends_on:
       - postgres
     ports:
@@ -36,6 +38,8 @@ services:
       target: build
       dockerfile: Dockerfile.front
     container_name: front
+    volumes:
+    - ./front-react:/app
     depends_on:
       - api
     ports:

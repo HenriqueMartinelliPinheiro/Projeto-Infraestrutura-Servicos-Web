@@ -1,8 +1,8 @@
 // src/App.tsx
-import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import {Header} from './components/Header';
-import {EventoPage} from './pages/EventoPage';
+import {EventPage} from './pages/EventPage';
+import {CreateEventPage} from './pages/CreateEventPage';
 
 function App() {
   return (
@@ -10,7 +10,8 @@ function App() {
       <Header />
       <div className="p-4">
         <Routes>
-          <Route path="/eventos" element={<EventoPage />} />
+          <Route path="/eventos" element={<EventPage />} />
+          <Route path='/cadastrarEvento' element={<CreateEventPage/>}/>
         </Routes>
       </div>
     </Router>

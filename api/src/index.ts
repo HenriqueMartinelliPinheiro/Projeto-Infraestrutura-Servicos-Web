@@ -5,10 +5,10 @@ const prisma: PrismaClient = new PrismaClient()
 
 const app: Express = express();
 
-async function createEvento() {
-    await prisma.evento.create({
+async function createEvent() {
+    await prisma.event.create({
         data: {
-            nome: 'Teste',
+            name: 'Teste',
             status: 1
         },
     })
@@ -19,7 +19,7 @@ app.get("/", (req: Request, res: Response) => {
 });
 
 app.get("/createUser", (req: Request, res: Response) => {
-    createEvento().then(()=>{
+    createEvent().then(()=>{
         res.status(200).json("Evento Cadastradsdsddsddo");
     }).catch((err)=>{
         res.status(400).json("Erro");

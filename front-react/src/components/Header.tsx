@@ -7,8 +7,11 @@ export const Header: React.FC = () => {
         <nav>
           <ul className="flex space-x-4">
             <li>
-              <a href="/eventos" className="text-white hover:text-gray-200">
+              <a href="/eventos" className="text-white hover:text-gray-200 mx-4">
                 Eventos
+              </a>
+              <a href="/cadastrarEvento" className="text-white hover:text-gray-200 mx-4">
+                Cadastrar Evento
               </a>
             </li>
           </ul>

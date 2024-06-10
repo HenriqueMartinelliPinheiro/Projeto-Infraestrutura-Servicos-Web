@@ -13,9 +13,9 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Evento {
+model Event {
   id  Int @id @default(autoincrement())
-  nome String
+  name String
   status Int
 }
 
