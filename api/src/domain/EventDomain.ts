@@ -1,10 +1,12 @@
+import { ExitStatus } from "typescript";
+
 interface EventoProps{
     id?: number;
     name: string;
     status: number;
 }
 
-export class Event {
+export class EventDomain {
     private id?: number;
     private name: string;
     private status: number;
@@ -19,7 +21,7 @@ export class Event {
         return this.id;
     }
 
-    getNome(){
+    getName(){
         return this.name;
     }
 
@@ -27,11 +29,10 @@ export class Event {
         return this.status;
     }
 
-    setId(id: number){
-        this.id = id;
-    }
-
     setNome(name: string){
+        if (!name || name.trim().length === 0) {
+            throw new Error("Nome nulo");
+        }
         this.name = name;
     }
 
