@@ -1,7 +1,7 @@
 import { IEventRepository } from "../../repository/interfaces/IEventRepository";
 import { EventDomain } from "../../domain/EventDomain";
 
-export class GetAllEvents {
+export class GetAllEventsService {
     private eventRepository : IEventRepository;
 
     constructor(repository : IEventRepository){
@@ -13,21 +13,25 @@ export class GetAllEvents {
         try{
             const events : EventDomain[] | undefined = await this.eventRepository.getAllEvents();
             if(events){
+                console.log("Eventos retornados com sucesso")
                 return {
+                    success: true,
                     events: events,
                     msg: "Eventos Retornados com sucesso",
                     errorCode: null
                 }
             } else{
                 return{
+                    success: false,
                     events: null,
                     msg: "Erro ao consultar Eventos",
                     errorCode: 3
                 }
             }
         } catch(error){
-            console.error("Erro ao executar GetAllEvents:", error);
+            console.error("Erro ao executar GetAllEventsController:", error);
             return{
+                success: false,
                 event: null,
                 msg: "Erro ao consultar Eventos",
                 errorCode: 4

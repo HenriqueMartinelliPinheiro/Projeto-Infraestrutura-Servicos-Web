@@ -1,14 +1,12 @@
-import { EventRepository } from "../repository/implementation/EventRepository";
-import { IEventRepository } from "../repository/interfaces/IEventRepository";
+import { EventRepository } from "../../repository/implementation/EventRepository";
+import { IEventRepository } from "../../repository/interfaces/IEventRepository";
 import { PrismaClient } from "@prisma/client";
-import { CreateEvent } from "../services/events/CreateEvent";
+import { CreateEventService } from "../../services/event/CreateEventService";
 import {Request, Response} from "express"
-import { createEventSchema } from "../dataSchema/Event/createEventSchema";
-import Joi from "joi";
-import { join } from "@prisma/client/runtime/library";
-import { EventDomain } from "../domain/EventDomain";
+import { createEventSchema } from "../../dataSchema/event/createEventSchema";
+import { EventDomain } from "../../domain/EventDomain";
 
-export class EventController {
+export class CreateEventController {
     private repository : IEventRepository;
     
     constructor(){
@@ -26,7 +24,7 @@ export class EventController {
             "errorCode": 5
            })
         }
-        const createEventService = new CreateEvent(this.repository);
+        const createEventService = new CreateEventService(this.repository);
         try{
             const createdEvent = await createEventService.execute(new EventDomain(
                 {
@@ -41,7 +39,9 @@ export class EventController {
             } else{
                 res.status(500).json(JSON.stringify(createdEvent));
             }
+
         } catch(error){
+            console.error("Erro ao executar CreateEventController")
             res.status(500).json({
                 "success": false,
                 "event": undefined,

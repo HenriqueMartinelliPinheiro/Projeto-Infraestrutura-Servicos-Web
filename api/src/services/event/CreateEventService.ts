@@ -1,7 +1,7 @@
 import { IEventRepository } from "../../repository/interfaces/IEventRepository";
 import { EventDomain } from "../../domain/EventDomain";
 
-export class CreateEvent {
+export class CreateEventService {
     private eventRepository : IEventRepository;
 
     constructor(repository : IEventRepository){
