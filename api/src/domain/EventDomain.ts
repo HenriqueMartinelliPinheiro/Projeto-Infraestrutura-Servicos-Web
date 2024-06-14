@@ -30,9 +30,6 @@ export class EventDomain {
     }
 
     setNome(name: string){
-        if (!name || name.trim().length === 0) {
-            throw new Error("Nome nulo");
-        }
         this.name = name;
     }
 

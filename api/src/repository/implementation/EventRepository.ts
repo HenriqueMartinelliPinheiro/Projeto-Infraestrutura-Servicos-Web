@@ -29,17 +29,22 @@ export class EventRepository implements IEventRepository {
             return undefined;
         }
     }
+
     getAllEvents = async () : Promise<EventDomain[]|undefined> =>{
         try {
-            const returnedEvents = await this.prismaClient.event.findMany(); 
-            returnedEvents.forEach((event)=>{
-                const e = new EventDomain({
+            const returnedEvents = await this.prismaClient.event.findMany();
+            const eventList : EventDomain [] = returnedEvents.map((event)=>{
+                return new EventDomain({
                     id: event.id,
                     name: event.name,
                     status: event.status
-                    
                 });
            });
+           return eventList;
+        }
+        catch(err) {
+            console.error(err);
+            return undefined;
         }
     }
 }
