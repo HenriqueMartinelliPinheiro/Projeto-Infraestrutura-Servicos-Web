@@ -19,17 +19,15 @@ export const EventPage: React.FC = () => {
     const fetchData = async () => {
 
       try {
-        const response = await fetch('http://localhost:4000/getAllEvents');
-        console.log("Resposta recebida:", response);
+        const response = await fetch(addressAPI+'getAllEvents');
 
         if (!response.ok) {
           console.error("Resposta não OK:", response);
-          throw new Error('Erro ao buscar dadosdsd');
+          throw new Error('Erro ao buscar dados');
         }
 
-        const data = await response.json();
-        console.log("Dados recebidos:", data);
-
+        const data = JSON.parse(await response.json());
+        
         if (data.success==true) {
           setEvents(data.events);
         } else {

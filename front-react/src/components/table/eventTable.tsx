@@ -28,8 +28,8 @@ export const EventTable: React.FC<EventTableProps> = ({ eventList }) => {
 
     return (
         <div className="overflow-x-auto">
-            <table className="min-w-full text-sm text-left text-gray-500 dark:text-gray-400 text-center">
-                <thead className="text-xs text-white uppercase bg-green-600 dark:bg-gray-700 dark:text-gray-400">
+            <table className="min-w-full text-sm text-left text-gray-700 dark:text-gray-500 text-center">
+                <thead className="text-xs text-white uppercase bg-green-600 dark:bg-gray-700 dark:text-gray-500">
                     <tr>
                         <th className="px-6 py-3">ID</th>
                         <th className="px-6 py-3">Nome</th>
@@ -40,7 +40,6 @@ export const EventTable: React.FC<EventTableProps> = ({ eventList }) => {
                 <tbody>
                     {eventList.map((event) => (
                         <tr key={event.id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                            <td>Teste</td>
                             <EventTd value={event.id} />
                             <EventTd value={event.name} />
                             <EventTd value={event.status} />
