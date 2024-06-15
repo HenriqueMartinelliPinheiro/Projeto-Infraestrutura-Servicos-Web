@@ -1,22 +1,6 @@
 version: "3.8"
 
 services:
-  api:
-    build:
-      context: ./api
-      dockerfile: Dockerfile.api
-      target: build
-    container_name: api
-    command: npm run dev
-    volumes:
-      - ./api:/app
-    depends_on:
-      - postgres
-    ports:
-      - 4000:4000
-    networks:
-      rede_banco:
-        ipv4_address: 172.16.2.2
 
   postgres:
     image: postgres:13
@@ -33,19 +17,31 @@ services:
       rede_banco:
         ipv4_address: 172.16.2.3
 
+  api:
+    build:
+      context: ./api
+      dockerfile: Dockerfile.api
+      target: build
+    container_name: api
+    depends_on:
+      - postgres
+    command: npm run start
+    ports:
+      - 4000:4000
+    networks:
+      rede_banco:
+        ipv4_address: 172.16.2.2
+
   front:
     build:
       context: ./front-react
       dockerfile: Dockerfile.front
-      target: build
+      target: prod
     container_name: front
-    volumes:
-      - ./front-react:/app
     depends_on:
       - api
     ports:
-      - 5173:5173
-    command: npm run dev
+      - 9090:80
     networks:
       rede_front:
         ipv4_address: 172.16.1.3

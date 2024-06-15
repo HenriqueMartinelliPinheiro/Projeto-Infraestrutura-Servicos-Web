@@ -13,17 +13,4 @@ RUN npx prisma generate
 
 RUN npm run build
 
-CMD ["sh", "-c", "npx prisma migrate dev --name init && npm run dev"]
-
-#Production stage
-FROM node:lts-alpine AS production
-
-WORKDIR /app
-
-COPY package*.json ./
-
-RUN npm install --omit=dev
-
-COPY --from=build /app/dist ./dist
-
-CMD ["node", "dist/index.js"]
+CMD ["sh", "-c", "npx prisma migrate dev --name init"]
