@@ -1,0 +1,27 @@
+---
+- name: Derrubar Docker Compose
+  hosts: localhost
+  connection: local
+  tasks:
+    - name: Verificar se o Docker está instalado
+      command: docker --version
+      register: dockerVersion
+      failed_when: dockerVersion.rc != 0
+      changed_when: false
+
+    - name: Verificar se o Docker Compose está instalado
+      command: docker-compose --version
+      register: dockerComposeVersion
+      failed_when: dockerComposeVersion.rc != 0
+      changed_when: false
+
+    - name: Derrubar os serviços do Docker Compose
+      command: docker-compose -f docker-compose.prod.yml down
+      args:
+        chdir: ../
+      register: composeDownOutput
+      failed_when: composeDownOutput.rc != 0
+
+    - name: Registrar saída do Docker Compose Down
+      debug:
+        msg: "Saída do Docker Compose Down:\n{{ composeDownOutput.stdout }}\n{{ composeDownOutput.stderr }}"

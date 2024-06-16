@@ -1,0 +1,62 @@
+---
+- name: Executar Docker Compose
+  hosts: localhost
+  connection: local
+  tasks:
+    - name: Verificar se o Docker está instalado
+      command: docker --version
+      register: dockerVersion
+      failed_when: dockerVersion.rc != 0
+
+    - name: Verificar se o Docker Compose está instalado
+      command: docker-compose --version
+      register: dockerComposeVersion
+      failed_when: dockerComposeVersion.rc != 0
+
+    - name: Subir os serviços do Docker Compose
+      command: docker-compose -f docker-compose.prod.yml up -d --remove-orphans --build
+      args:
+        chdir: ../
+      register: composeOutput
+      failed_when: composeOutput.rc != 0
+
+    - name: Registrar saída do Docker Compose
+      debug:
+        msg: "Saída do Docker Compose:\n{{ composeOutput.stdout }}\n{{ composeOutput.stderr }}"
+
+    - name: Verificar status dos containers
+      command: docker-compose -f docker-compose.prod.yml ps
+      args:
+        chdir: ../
+      register: psOutput
+
+    - name: Registrar status dos containers
+      debug:
+        msg: "Status dos containers:\n{{ psOutput.stdout }}\n{{ psOutput.stderr }}"
+
+    - name: Registrar logs do container 'front'
+      command: docker logs front
+      register: frontLogs
+      ignore_errors: true
+
+    - name: Exibir logs do container 'front'
+      debug:
+        msg: "Logs do container 'front':\n{{ frontLogs.stdout }}\n{{ frontLogs.stderr }}"
+
+    - name: Registrar logs do container 'api'
+      command: docker logs api
+      register: apiLogs
+      ignore_errors: true
+
+    - name: Exibir logs do container 'api'
+      debug:
+        msg: "Logs do container 'api':\n{{ apiLogs.stdout }}\n{{ apiLogs.stderr }}"
+
+    - name: Registrar logs do container 'postgres'
+      command: docker logs postgres
+      register: postgresLogs
+      ignore_errors: true
+
+    - name: Exibir logs do container 'postgres'
+      debug:
+        msg: "Logs do container 'postgres':\n{{ postgresLogs.stdout }}\n{{ postgresLogs.stderr }}"
