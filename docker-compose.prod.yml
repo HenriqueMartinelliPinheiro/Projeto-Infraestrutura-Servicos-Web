@@ -5,10 +5,8 @@ services:
   postgres:
     image: postgres:13
     container_name: postgres
-    environment:
-      - POSTGRES_USER=seu_usuario
-      - POSTGRES_PASSWORD=sua_senha
-      - POSTGRES_DB=seu_banco
+    env_file:
+      - ./.env
     ports:
       - 5433:5432
     volumes:
@@ -26,8 +24,6 @@ services:
     depends_on:
       - postgres
     command: npm run start
-    ports:
-      - 4000:4000
     networks:
       rede_banco:
         ipv4_address: 172.16.2.2

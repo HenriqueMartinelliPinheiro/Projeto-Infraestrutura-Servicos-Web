@@ -28,7 +28,7 @@ export class GetAllEventsController {
         try{
             const events = await getAllEventsService.execute();
             if(events.success) {
-                console.log("Evento criado com sucesso.")
+                console.log("Eventos Retornados com sucesso.")
                 return res.status(201).json(JSON.stringify(events));
             } else{
                 res.status(500).json(JSON.stringify(events));

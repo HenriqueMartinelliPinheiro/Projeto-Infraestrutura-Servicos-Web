@@ -13,7 +13,6 @@ export class GetAllEventsService {
         try{
             const events : EventDomain[] | undefined = await this.eventRepository.getAllEvents();
             if(events){
-                console.log("Eventos retornados com sucesso")
                 return {
                     success: true,
                     events: events,
