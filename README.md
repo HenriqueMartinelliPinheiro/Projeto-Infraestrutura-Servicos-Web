@@ -8,7 +8,7 @@ O projeto é composto por três componentes:
 
 O front-end faz requisições HTTP para a API em TypeScript. A API, desenvolvida em Node.js, gerencia a lógica de negócios e fornece os dados para o front-end. Quando uma requisição é feita pelo front-end, a API consulta o banco de dados, que responde à API, que então retorna os dados ao front-end. A estrutura pode ser vista na Figura 1.
 
-![Figura 1: Componentes do Projeto (O Autor)](figura1.jpg)
+![Figura 1: Componentes do Projeto (O Autor)](figura1.png)
 
 ## Ansible
 
